@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import logo from '../../../images/logo.png';
 
 const Header = () => {
@@ -13,7 +14,7 @@ const Header = () => {
         variant='dark'
       >
         <Container>
-          <Navbar.Brand href='/'>
+          <Navbar.Brand as={Link} to='/'>
             <img src={logo} height='30px' alt='main-logo' />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
@@ -36,8 +37,10 @@ const Header = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              <Nav.Link href='/about'>About</Nav.Link>
-              <Nav.Link eventKey={2} href='#memes'>
+              <Nav.Link as={Link} to='/about'>
+                About
+              </Nav.Link>
+              <Nav.Link as={Link} to='/login'>
                 Log In
               </Nav.Link>
             </Nav>
