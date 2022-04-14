@@ -9,7 +9,6 @@ function App() {
   return (
     <div>
       <Header></Header>
-      <h1>MacBook: My Site</h1>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/about' element={<About></About>}></Route>
