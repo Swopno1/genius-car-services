@@ -3,15 +3,17 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const nameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const name = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
+    console.log(name, email, password);
   };
 
   const navigateLogin = (event) => {
@@ -25,7 +27,7 @@ const Register = () => {
         <Form.Group className='mb-3' controlId='formBasicName'>
           <Form.Label>Your Name</Form.Label>
           <Form.Control
-            ref={emailRef}
+            ref={nameRef}
             type='text'
             placeholder='Enter Your Name'
             autoComplete='name'
