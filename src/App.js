@@ -6,8 +6,8 @@ import Home from './Pages/Home/Home/Home';
 import About from './Pages/About/About';
 import ServiceDetail from './Pages/ServiceDetail/ServiceDetail';
 import NotFound from './Pages/Shared/NotFound/NotFound';
-import Login from './Pages/Login/Login';
-import Register from './Pages/Register/Register';
+import Login from './Pages/Login/Login/Login';
+import Register from './Pages/Login/Register/Register';
 
 function App() {
   return (
