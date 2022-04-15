@@ -5,7 +5,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const Register = () => {
-  const [createUserWithEmailAndPassword, user, loading, error] =
+  const [createUserWithEmailAndPassword, user] =
     useCreateUserWithEmailAndPassword(auth);
 
   const nameRef = useRef('');
@@ -15,7 +15,7 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const name = nameRef.current.value;
+    // const name = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     createUserWithEmailAndPassword(email, password);
