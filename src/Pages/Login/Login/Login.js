@@ -12,8 +12,9 @@ const Login = () => {
   const location = useLocation('');
 
   let from = location.state?.from?.pathname || '/';
+  let errorElement = '';
 
-  const [signInWithEmailAndPassword, user] =
+  const [signInWithEmailAndPassword, user, error] =
     useSignInWithEmailAndPassword(auth);
 
   if (user) {
@@ -26,6 +27,14 @@ const Login = () => {
     const password = passwordRef.current.value;
     signInWithEmailAndPassword(email, password);
   };
+
+  if (error) {
+    errorElement = (
+      <div>
+        <p className='text-danger'>Error: {error?.message}</p>
+      </div>
+    );
+  }
 
   const navigateRegister = (event) => {
     navigate('/register');
@@ -59,6 +68,7 @@ const Login = () => {
           Submit
         </Button>
       </Form>
+      {errorElement}
       <p>
         New to Genius Car?{' '}
         <Link
@@ -69,6 +79,7 @@ const Login = () => {
           Please Register
         </Link>
       </p>
+
       <SocialLogin></SocialLogin>
     </div>
   );
