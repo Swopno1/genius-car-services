@@ -14,9 +14,15 @@ const Login = () => {
   let from = location.state?.from?.pathname || '/';
   let errorElement = '';
 
-  const [signInWithEmailAndPassword, user, error] =
+  const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
+  if (error) {
+    errorElement = <p className='text-danger'>Error: {error?.message}</p>;
+  }
+  if (loading) {
+    errorElement = <p>Loading...</p>;
+  }
   if (user) {
     navigate(from, { replace: true });
   }
@@ -27,14 +33,6 @@ const Login = () => {
     const password = passwordRef.current.value;
     signInWithEmailAndPassword(email, password);
   };
-
-  if (error) {
-    errorElement = (
-      <div>
-        <p className='text-danger'>Error: {error?.message}</p>
-      </div>
-    );
-  }
 
   const navigateRegister = (event) => {
     navigate('/register');
@@ -61,11 +59,8 @@ const Login = () => {
             autoComplete='current-password'
           />
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-          <Form.Check type='checkbox' label='Check me out' />
-        </Form.Group>
-        <Button variant='primary' type='submit'>
-          Submit
+        <Button variant='primary w-50 mx-auto d-block mb-2' type='submit'>
+          Log In
         </Button>
       </Form>
       {errorElement}
