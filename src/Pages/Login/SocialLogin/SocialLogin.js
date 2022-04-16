@@ -24,6 +24,10 @@ const SocialLogin = () => {
     );
   }
 
+  if (loading || loading1) {
+    errorElement = <p>Loading...</p>;
+  }
+
   if (user || user1) {
     navigate('/home');
   }
