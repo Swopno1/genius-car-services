@@ -7,6 +7,7 @@ import {
 } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import Loading from '../../Shared/Loading/Loading';
 
 const Login = () => {
   const emailRef = useRef('');
@@ -27,7 +28,7 @@ const Login = () => {
     errorElement = <p className='text-danger'>Error: {error?.message}</p>;
   }
   if (loading || sending) {
-    errorElement = <p>Loading...</p>;
+    errorElement = <Loading></Loading>;
   }
   if (user) {
     navigate(from, { replace: true });
