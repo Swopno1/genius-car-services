@@ -1,14 +1,20 @@
 import React, { useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { async } from '@firebase/util';
 
 const Register = () => {
   const [agree, setAgree] = useState(false);
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
   const nameRef = useRef('');
   const emailRef = useRef('');
@@ -16,17 +22,25 @@ const Register = () => {
   const navigate = useNavigate();
   let errorElement = '';
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // const name = nameRef.current.value;
+    const displayName = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    createUserWithEmailAndPassword(email, password);
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName });
+    navigate('/home');
   };
 
-  if (error) {
-    errorElement = <p className='text-danger'>Error: {error?.message}</p>;
+  if (error || updateError) {
+    errorElement = (
+      <p className='text-danger'>
+        Error: {error?.message}
+        {updateError?.message}
+      </p>
+    );
   }
   if (loading) {
     errorElement = <p>Loading...</p>;
@@ -35,10 +49,6 @@ const Register = () => {
   const navigateLogin = (event) => {
     navigate('/login');
   };
-
-  if (user) {
-    navigate('/home');
-  }
 
   return (
     <div className='container w-50 mx-auto'>
